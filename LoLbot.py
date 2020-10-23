@@ -5,4 +5,4 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-bot = commands.bot(prefix='!')
+bot = commands.Bot(command_prefix='!')
