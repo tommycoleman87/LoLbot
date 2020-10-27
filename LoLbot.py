@@ -23,7 +23,21 @@ async def get_summoner(ctx, arg):
 
 @bot.command(name='match')
 async def get_match_stats(ctx):
-    matches = summoner.match_history
-    await ctx.send(matches[0])
+    match = summoner.match_history[0]
+    teams = match.teams
+    team_1 = teams[0].participants
+    team_2 = teams[1].participants
+    team_1 = [player.summoner for player in team_1]
+    team_2 = [player.summoner for player in team_2]
+
+    for player in team_1:
+        ranks = player.league_entries.copy()
+        ranks = [(rank.wins, rank.queue, rank.tier, rank.division) for rank in ranks]
+        message = f'Summoner: {player.name} \n Rank: {ranks} \n Level: {player.level}'
+        await ctx.send(message)
+    
+  
+
+
 
 bot.run(TOKEN)
