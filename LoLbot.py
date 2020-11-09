@@ -33,24 +33,24 @@ async def get_summoner(ctx, arg):
 async def get_match_stats(ctx):
     matches = summoner.match_history
     role_dict = {}
-    # if len(matches) > 100:
-    #     matches = matches[:100]
-    # for match in matches:
-    #     current_summoner = [player for player in match.participants if player.summoner.name == summoner.name]
-    #     current_summoner = current_summoner[0]
-    #     if current_summoner.lane is not None and current_summoner.role is not None:
-    #         key = (str(current_summoner.lane.name) + str(current_summoner.role.name))
-    #         if key in role_dict:
-    #             role_dict[key] += 1
-    #         else:
-    #             role_dict[key] = 0
+    if len(matches) > 100:
+        matches = matches[:100]
+    for match in matches:
+        current_summoner = [player for player in match.participants if player.summoner.name == summoner.name]
+        current_summoner = current_summoner[0]
+        if current_summoner.lane is not None and current_summoner.role is not None:
+            key = (str(current_summoner.lane.name) + str(current_summoner.role.name))
+            if key in role_dict:
+                role_dict[key] += 1
+            else:
+                role_dict[key] = 0
        
-    await ctx.send(len(matches))
-    # for player in team_1:
-    #     ranks = player.league_entries.copy()
-    #     ranks = [(rank.wins, rank.queue, rank.tier, rank.division) for rank in ranks]
-    #     message = f'Summoner: {player.name} \n Rank: {ranks} \n Level: {player.level}'
-    #     await ctx.send(message)
+    # await ctx.send(len(matches))
+    for player in team_1:
+        ranks = player.league_entries.copy()
+        ranks = [(rank.wins, rank.queue, rank.tier, rank.division) for rank in ranks]
+        message = f'Summoner: {player.name} \n Rank: {ranks} \n Level: {player.level}'
+        await ctx.send(message)
 
 @bot.command(name='roles')
 async def roles(ctx):
